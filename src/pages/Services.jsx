@@ -163,7 +163,7 @@ function Services() {
           </p>
           <Link
             to="/contact"
-            className="inline-block bg-white text-primary-600 px-10 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="inline-block bg-black text-primary-600 px-10 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             Get Your Free Quote
           </Link>

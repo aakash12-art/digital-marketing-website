@@ -1,65 +1,188 @@
 console.log("🔥 NEW CONTACT JSX LOADED");
 
+import { useState } from "react";
+import emailjs from "emailjs-com";
+
+
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Validation logic
+  const validate = () => {
+    let newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Enter a valid email";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message cannot be empty";
+    }
+
+    return newErrors;
+  };
+
+  // Submit handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validationErrors = validate();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    }
+  };
+  emailjs.send(
+  "service_mbqlsrs",
+  "template_7m4kj1z",
+  {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    message: formData.message,
+  },
+  "Bgxh2C5_428Tpxd2b"
+)
+.then(() => {
+  setSubmitted(true);
+})
+.catch((error) => {
+  console.error("Email error:", error);
+});
+
+
   return (
-    <section className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-500 to-indigo-600 flex items-center justify-center px-4">
-      
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        
-        {/* LEFT SIDE */}
-        <div className="p-10 bg-purple-600 text-white flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-purple-100 mb-6">
-            Tell us about your project and we’ll help you grow your business.
-          </p>
+    <section className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8">
 
-          <ul className="space-y-3 text-sm">
-            <li>📞 +91 98765 43210</li>
-            <li>✉️ contact@digitalpro.com</li>
-            <li>📍 Bangalore, India</li>
-          </ul>
-        </div>
+        {/* SUCCESS MESSAGE */}
+        {submitted && (
+          <div className="mb-6 rounded-lg bg-green-100 border border-green-400 text-green-800 px-4 py-3 text-sm">
+            ✅ Thank you! Your enquiry has been sent successfully.
+          </div>
+        )}
 
-        {/* RIGHT SIDE FORM */}
-        <div className="p-10">
-          <h3 className="text-2xl font-semibold mb-6 text-gray-800">
-            Send a Message
-          </h3>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          Contact Us
+        </h2>
+        <p className="text-gray-500 mb-6">
+          We usually respond within 24 hours.
+        </p>
 
-          <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Full Name
+            </label>
             <input
               type="text"
-              placeholder="Full Name"
-              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={`w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 
+                ${errors.name ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-indigo-500"}`}
             />
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
+          </div>
 
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Email Address
+            </label>
             <input
               type="email"
-              placeholder="Email Address"
-              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 
+                ${errors.email ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-indigo-500"}`}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
+          </div>
 
+          {/* Phone */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Phone Number
+            </label>
             <input
-              type="tel"
-              placeholder="Phone Number"
-              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={`w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 
+                ${errors.phone ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-indigo-500"}`}
             />
+            {errors.phone && (
+              <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+            )}
+          </div>
 
+          {/* Message */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Message
+            </label>
             <textarea
               rows="4"
-              placeholder="Tell us about your project..."
-              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className={`w-full rounded-lg border px-4 py-3 resize-none focus:outline-none focus:ring-2 
+                ${errors.message ? "border-red-500 focus:ring-red-400" : "border-gray-300 focus:ring-indigo-500"}`}
             />
+            {errors.message && (
+              <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+            )}
+          </div>
 
-            <button
-              type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-all duration-300"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold 
+                       hover:bg-indigo-700 transition duration-300 shadow-lg"
+          >
+            Send Enquiry
+          </button>
 
+        </form>
       </div>
     </section>
   );

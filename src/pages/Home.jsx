@@ -54,45 +54,48 @@ function Home() {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section - Split Layout */}
-      <section className="relative bg-white py-20 md:py-32 lg:py-40 overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Side - Content */}
-            <div className="animate-fade-in-up">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                Grow Your Business with{' '}
-                <span className="text-primary-600">Digital Excellence</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed">
-                We help businesses reach their full potential through strategic SEO, 
-                social media marketing, Google Ads, and stunning web design.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/contact"
-                  className="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-all duration-200 shadow-sm hover:shadow-md text-center"
-                >
-                  Get Started Today
-                </Link>
-                <Link
-                  to="/services"
-                  className="inline-block border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:border-primary-600 hover:text-primary-600 transition-all duration-200 text-center"
-                >
-                  Our Services
-                </Link>
-              </div>
-            </div>
+      <section className="min-h-screen flex items-center bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 text-white">
+  <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-            {/* Right Side - Abstract Design */}
-            <div className="relative h-[400px] lg:h-[500px] fade-in-on-scroll">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-64 h-64 bg-primary-200 rounded-full opacity-20 blur-3xl"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* LEFT CONTENT */}
+    <div>
+      <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+        Grow Your Business <br />
+        With <span className="text-yellow-300">DigitalPro</span>
+      </h1>
+
+      <p className="text-lg md:text-xl text-purple-100 mb-8">
+        We help startups and businesses increase their online presence,
+        generate quality leads, and boost revenue through smart digital
+        marketing strategies.
+      </p>
+
+      <div className="flex gap-4">
+        <a
+          href="/contact"
+          className="bg-yellow-400 text-purple-900 px-8 py-4 rounded-xl font-semibold hover:bg-yellow-300 transition"
+        >
+          Get Free Consultation
+        </a>
+
+        <a
+          href="/about"
+          className="border border-white/40 px-8 py-4 rounded-xl hover:bg-white/10 transition"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+
+    {/* RIGHT VISUAL */}
+    <div className="hidden md:flex justify-center">
+      <div className="w-80 h-80 bg-white/10 rounded-full flex items-center justify-center">
+        <span className="text-6xl">🚀</span>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* Services Overview Section */}
       <section className="py-24 md:py-32 bg-gray-50">
@@ -132,7 +135,7 @@ function Home() {
           >
             <Link
               to="/services"
-              className="inline-block bg-primary-600 text-white px-10 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-all duration-200 shadow-sm hover:shadow-md"
+              className="inline-block bg-primary-600 text-black px-10 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               View All Services
             </Link>
@@ -154,7 +157,7 @@ function Home() {
           </p>
           <Link
             to="/contact"
-            className="inline-block bg-white text-primary-600 px-10 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="inline-block bg-black text-primary-600 px-10 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             Contact Us Now
           </Link>
